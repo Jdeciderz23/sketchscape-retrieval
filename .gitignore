@@ -1,0 +1,14 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+/.venv/
+/data/
+/models/*
+!/models/adapter_normal.pth
+!/models/adapter_unseen.pth
+/outputs/adapter/cache/
+/outputs/adapter/*.log
+/outputs/logs/*
+!/outputs/logs/environment.txt
+~$*
+.env

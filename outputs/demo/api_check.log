@@ -1,0 +1,1 @@
+PASS MPS: 12 official stroke sequences, 48 replay checkpoints with matching pixels, ranks and top-1 IDs, top-5 sizes and ordering; all 3000 gallery IDs, thumbnail and non-curated reference ranks; live inference, full, free and empty canvas.

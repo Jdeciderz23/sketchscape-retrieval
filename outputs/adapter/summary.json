@@ -1,0 +1,40 @@
+{
+  "normal": {
+    "early_mean_delta_pp": 3.316666666666667,
+    "early_ci95_pp": [
+      2.45,
+      4.166666666666667
+    ],
+    "examples": {
+      "gained": {
+        "id": "000000197222",
+        "before": 36,
+        "after": 1
+      },
+      "lost": {
+        "id": "000000195345",
+        "before": 1,
+        "after": 2
+      }
+    }
+  },
+  "unseen": {
+    "early_mean_delta_pp": 2.9,
+    "early_ci95_pp": [
+      1.9333333333333333,
+      3.85
+    ],
+    "examples": {
+      "gained": {
+        "id": "000000063147",
+        "before": 3,
+        "after": 1
+      },
+      "lost": {
+        "id": "000000292791",
+        "before": 1,
+        "after": 2
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "total": 10000,
+  "max_clock_correction": 785,
+  "sequences_with_clock_correction": 5,
+  "verified_full_raster_matches": 10000,
+  "stages": {
+    "25": {
+      "blank": 1,
+      "same_ink_as_full": 1,
+      "median_fraction_of_full_ink": 0.23521947862874837
+    },
+    "50": {
+      "blank": 1,
+      "same_ink_as_full": 4,
+      "median_fraction_of_full_ink": 0.4451068430824756
+    },
+    "75": {
+      "blank": 0,
+      "same_ink_as_full": 12,
+      "median_fraction_of_full_ink": 0.707935871971374
+    }
+  }
+}

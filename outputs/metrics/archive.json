@@ -1,0 +1,10 @@
+{
+  "archive": "fscoco.tar.gz",
+  "sha256": "4c71f8976bd9085baa1e530c45d38ce715ea3fb06bb1a9a3f1b8a7c789912f13",
+  "compressed": 2378884718,
+  "members": 60609,
+  "expanded_file_bytes": 5293619523,
+  "raster_files": {
+    ".jpg": 10000
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "protocol": "normal",
+  "stage": "full",
+  "device": "mps",
+  "dtype": "float32",
+  "checkpoint": "fscoco_normal.pth",
+  "strict": true,
+  "model_class": "CLIP_SBIRModel",
+  "config": {
+    "model": "convnext_base"
+  },
+  "parameters": 88090752,
+  "load_s": 2.3281470829388127,
+  "queries": 3000,
+  "gallery": 3000,
+  "batch": 6,
+  "feature_dim": 512,
+  "first_sketch_norm": 1.0,
+  "first_photo_norm": 0.9999999403953552,
+  "first_pair_top5": [
+    {
+      "id": [
+        1,
+        "000000083613"
+      ],
+      "d2": 0.819116784297231
+    },
+    {
+      "id": [
+        7,
+        "000000028820"
+      ],
+      "d2": 0.8804592079827589
+    },
+    {
+      "id": [
+        28,
+        "000000458401"
+      ],
+      "d2": 0.9636141531529836
+    },
+    {
+      "id": [
+        15,
+        "000000034061"
+      ],
+      "d2": 0.9931336923616249
+    },
+    {
+      "id": [
+        58,
+        "000000382839"
+      ],
+      "d2": 1.0052280585884734
+    }
+  ],
+  "hits": [
+    1863,
+    2444,
+    2616
+  ],
+  "recall_pct": [
+    62.1,
+    81.46666666666667,
+    87.2
+  ],
+  "elapsed_s": 128.6535517500015,
+  "post_load_s": 126.32540466706268,
+  "peak_process_rss_bytes": 1323565056,
+  "max_sampled_metal_driver_bytes": 1391443968
+}

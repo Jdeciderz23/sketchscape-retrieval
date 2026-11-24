@@ -1,0 +1,35 @@
+{
+  "pairs": 10000,
+  "unique_numeric_ids": 10000,
+  "duplicate_ids": [],
+  "decoded_photos": 10000,
+  "decoded_rasters": 10000,
+  "validated_json": 10000,
+  "splits": {
+    "normal": {
+      "file": "val_normal.txt",
+      "train": 7000,
+      "test": 3000,
+      "test_folders": 100,
+      "folder_overlap": 100,
+      "min_test_per_folder": 18,
+      "max_test_per_folder": 41
+    },
+    "unseen": {
+      "file": "val_unseen_user.txt",
+      "train": 7000,
+      "test": 3000,
+      "test_folders": 100,
+      "folder_overlap": 100,
+      "min_test_per_folder": 30,
+      "max_test_per_folder": 30
+    }
+  },
+  "numbered_folders": 100,
+  "raster_files_in_archive": {
+    ".jpg": 10000
+  },
+  "official_png_count": 10000,
+  "png_generated_this_validation": 10000,
+  "decoded_source_jpg_sketches": 10000
+}

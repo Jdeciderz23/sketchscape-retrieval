@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SketchScape · 草图找图</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" type="module"></script>
+</head>
+<body>
+<header class="mast">
+  <div class="bar">
+    <h1 class="brand"><img src="/favicon.svg" alt=""><span lang="en">SketchScape</span></h1>
+    <nav class="nav" aria-label="输入模式">
+      <button type="button" id="mode-replay" aria-pressed="true"><i data-icon="film"></i>草图回放</button>
+      <button type="button" id="mode-live" disabled aria-pressed="false"><i data-icon="pen"></i>现场手绘</button>
+    </nav>
+  </div>
+</header>
+<main>
+  <div id="alert" role="alert" hidden></div>
+  <div class="workspace">
+    <section class="input-side" aria-labelledby="input-title">
+      <div class="section-head"><h2 id="input-title">回放画布</h2>
+        <button class="text-button" id="sample" aria-haspopup="dialog" disabled><i data-icon="collection"></i>切换案例</button>
+      </div>
+      <div class="input-panel panel">
+        <div id="target-wrap" class="target-wrap">
+          <button class="target-image" id="target-image" aria-label="放大参考照片"><img id="target-photo" alt="参考照片"></button>
+          <div class="target-details">
+            <span id="target-label">目标照片</span><strong id="target-name"></strong>
+            <div id="target-actions" hidden>
+              <button class="secondary" id="choose-photo" aria-haspopup="dialog"><i data-icon="collection"></i>选参考图</button>
+              <button class="secondary" id="roll-photo"><i data-icon="dice"></i>随机一张</button>
+            </div>
+            <button class="text-button" id="free-draw" hidden>移除参考图</button>
+          </div>
+        </div>
+        <div class="pad" id="pad">
+          <canvas id="sketch" width="256" height="256" aria-label="当前草图画布"></canvas>
+          <div class="paper-empty" id="paper-empty" hidden><i data-icon="pen"></i><span>在这里画下你的草图</span></div>
+        </div>
+        <div id="replay-controls" class="controls">
+          <div class="control-caption"><label for="progress">绘制进度</label><output id="pct">25%</output></div>
+          <input id="progress" type="range" min="0" max="10000" step="1" value="2500" aria-label="绘制进度">
+          <div class="stops" aria-label="跳转到绘制进度">
+            <button data-tick="0">0%</button><button data-tick="2500">25%</button><button data-tick="5000">50%</button><button data-tick="7500">75%</button><button data-tick="10000">100%</button>
+          </div>
+          <div class="transport"><button class="primary" id="play"><i data-icon="play"></i><span>播放</span></button><button class="secondary" id="reset"><i data-icon="reset"></i>重播</button>
+            <select aria-label="回放速度" id="speed"><option value="1">1×</option><option value="2">2×</option><option value="4" selected>4×</option><option value="8">8×</option></select></div>
+        </div>
+        <div id="live-controls" class="controls" hidden>
+          <div class="transport"><button id="finish" class="primary"><i data-icon="check"></i><span>画完了</span></button><button id="undo" class="secondary"><i data-icon="undo"></i>撤销</button><button id="clear" class="secondary"><i data-icon="trash"></i>清空</button></div>
+        </div>
+      </div>
+    </section>
+    <section class="results" aria-label="两组检索结果">
+      <div class="section-head"><h2>检索结果</h2><span id="result-status" role="status">正在载入…</span></div>
+      <div class="model-grid">
+        <article class="model panel" id="model-base"></article><article class="model panel adapted" id="model-adapter"></article>
+      </div>
+      <label class="complete-option" id="complete-option" hidden><input type="checkbox" id="always"> 完稿后继续优化</label>
+    </section>
+  </div>
+</main>
+<dialog id="picker" aria-labelledby="picker-title">
+  <div class="dialogbar"><h2 id="picker-title">选择参考照片</h2><button class="secondary" id="close-picker" aria-label="关闭选图">关闭</button></div>
+  <div id="gallery-tools" hidden>
+    <input type="search" id="gallery-query" aria-label="搜索照片" placeholder="搜索照片，如「火车」或「zebra」" autocomplete="off">
+  </div>
+  <div id="picker-scroll"><div id="choices" class="choices"></div><p id="no-choices" hidden>没有找到照片，换个关键词试试。</p></div>
+  <div class="pagination" id="pagination" hidden><button id="prev-page" class="secondary">上一页</button><span id="page-label" aria-live="polite"></span><button id="next-page" class="secondary">下一页</button></div>
+</dialog>
+<dialog id="viewer" aria-labelledby="viewer-title"><div class="dialogbar"><span id="viewer-title"></span><button class="secondary" id="close-viewer" aria-label="关闭大图">关闭</button></div><img id="large-photo" alt="照片大图"></dialog>
+</body></html>

@@ -1,0 +1,23 @@
+{
+  "protocol": "normal",
+  "stage": "probe",
+  "device": "cpu",
+  "dtype": "float32",
+  "checkpoint": "fscoco_normal.pth",
+  "strict": true,
+  "model_class": "CLIP_SBIRModel",
+  "config": {
+    "model": "convnext_base"
+  },
+  "parameters": 88090752,
+  "load_s": 2.2716647089691833,
+  "probe_shape": [
+    1,
+    512
+  ],
+  "input": "synthetic tensor; hardware check only",
+  "elapsed_s": 2.8052873340202495,
+  "post_load_s": 0.5336226250510663,
+  "peak_process_rss_bytes": 1323352064,
+  "max_sampled_metal_driver_bytes": null
+}

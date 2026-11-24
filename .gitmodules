@@ -1,0 +1,4 @@
+[submodule "SketchScape"]
+	path = SketchScape
+	url = https://github.com/Emil-Demic/SketchScape.git
+	ignore = untracked
