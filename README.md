@@ -11,7 +11,7 @@
 | 做了什么，系统如何工作 | [技术报告 PDF](docs/SketchScape渐进式草图检索系统技术报告.pdf) · [可编辑 Word](docs/SketchScape渐进式草图检索系统技术报告.docx) |
 | 官方基线能否复现 | [双协议基线和论文数值对照](docs/03_baseline_reproduction.md) |
 | 适配器如何训练，为什么对早期草图有用 | [实验设计](docs/05_prefix_adapter_experiment.md) · [各阶段全量指标](docs/06_prefix_adapter_results.md) · [效果图 PNG](outputs/adapter/retrieval_effect.png) |
-| 一笔笔画时结果如何变化 | [斑马案例截图](outputs/demo/replay.png) · [答辩投影视图](outputs/demo/projector.png) · [现场手绘截图](outputs/demo/live.png) |
+| 一笔笔画时结果如何变化 | [斑马回放投影视图](outputs/demo/projector.png) · [现场手绘截图](outputs/demo/live.png) |
 | 能否复核结果，哪些情况会退步 | [Normal 逐图排名](outputs/adapter/normal/test_ranks.csv) · [退步案例](outputs/adapter/normal/first_lost_25.jpg) · [演示验收记录](outputs/demo/api_check.log) |
 
 在 Normal 协议、25% 绘制用时处，首位命中率从 11.90% 提高到 16.17%。在 75% 处从 51.80% 变为 50.47%。上述指标来自全部 3,000 条测试查询。界面中的 12 个案例按效果精选，适合用来解释某一幅草图的排名变化。[完整实验结果](docs/06_prefix_adapter_results.md)

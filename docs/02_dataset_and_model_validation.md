@@ -21,7 +21,7 @@ curl -fL -C - --retry 3 'https://dl.dropboxusercontent.com/scl/fi/9fv399bupkandn
 
 ## 全量文件与划分实测
 
-官方 tar.gz 的 SHA-256 为 4c71f8976bd9085baa1e530c45d38ce715ea3fb06bb1a9a3f1b8a7c789912f13。60,609 个归档条目，压缩大小 2,378,884,718 B，原文件逻辑总量 5,293,619,523 B。10,000 张照片和 10,000 个原始笔画 JSON 一一配对，10,000 个数值图像 ID 唯一。归档自带 raster_sketches 下的 JPG，而官方代码读取同名 PNG。因此用作者的 _render_sketch 从笔画生成全部 10,000 张完整 PNG，逐个解码评测使用的照片和 PNG，逐个解析笔画字段，均通过。原归档保留。归档信息及逐类计数见 outputs/metrics/archive.json 与 dataset.json。
+官方 tar.gz 的 SHA-256 为 4c71f8976bd9085baa1e530c45d38ce715ea3fb06bb1a9a3f1b8a7c789912f13。60,609 个归档条目，压缩大小 2,378,884,718 B，原文件逻辑总量 5,293,619,523 B。10,000 张照片和 10,000 个原始笔画 JSON 一一配对，10,000 个数值图像 ID 唯一。归档自带 raster_sketches 下的 JPG，而官方代码读取同名 PNG。因此用作者的 _render_sketch 从笔画生成全部 10,000 张完整 PNG，逐个解码评测使用的照片和 PNG，逐个解析笔画字段，均通过。本机已逐字节核对解压副本与归档中的全部常规文件，随后清理了压缩包副本。需要重新解包时可运行 scripts/fetch_dataset.py 取回归档。归档信息及逐类计数见 outputs/metrics/archive.json 与 dataset.json。
 
 每个协议均为 7,000 训练配对、3,000 测试配对，协议内训练和测试图像 ID 交集为零。两协议的测试集交集为 873 个图像 ID，不同协议独立评测。Normal 划分文件 SHA-256 为 91623e2514b73a2a1f17a64c548aa604b2c9787c9d32985fe9535e483b1bed5b，Unseen 为 ee299ada6fc4813327866b656c34fa7dd94c621609506cdbc935c80314e42f87。
 

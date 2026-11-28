@@ -1,16 +1,8 @@
 import { loadLibrary, openPicker } from './picker.js';
 const $ = id => document.getElementById(id);
 const paths = {
-    film: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4m-4 6h4m10-6h4m-4 6h4"/>',
-    pen: '<path d="m4 20 1-5L16 4a2 2 0 0 1 4 4L9 19l-5 1zM14 6l4 4"/>',
-    collection: '<rect x="6" y="5" width="14" height="13" rx="2"/><path d="M3 9v11h12M8 15l4-4 3 2 3-4"/>',
-    dice: '<rect x="3" y="3" width="18" height="18" rx="4"/><g fill="currentColor" stroke="none"><circle cx="8" cy="8" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="16" cy="16" r="1.4"/></g>',
     play: '<path fill="currentColor" stroke="none" d="m7 4 13 8-13 8z"/>',
-    pause: '<path fill="currentColor" stroke="none" d="M6 4h4v16H6zm8 0h4v16h-4z"/>',
-    reset: '<path d="M3 11a9 9 0 1 1 3 8M3 5v6h6"/>', undo: '<path d="m9 5-6 6 6 6M4 11h10c4 0 7 2 7 6"/>',
-    trash: '<path d="M3 6h18M9 6V4h6v2M6 6l1 14h10l1-14M10 10v6m4-6v6"/>',
-    check: '<path d="m4 12 5 5L20 6"/>',
-    photo: '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="1.5"/><path d="m4 18 6-6 3 3 3-5 4 6"/>'
+    pause: '<path fill="currentColor" stroke="none" d="M6 4h4v16H6zm8 0h4v16h-4z"/>'
 };
 function svg(name) { return '<svg aria-hidden="true" viewBox="0 0 24 24">' + paths[name] + '</svg>'; }
 function setIcons(el) { el.querySelectorAll('i[data-icon]').forEach(i => i.innerHTML = svg(i.dataset.icon)); }
@@ -80,7 +72,8 @@ function timeUI() {
     updateCompleteOption();
     $('pct').textContent = percent(tick);
     $('progress').value = tick;
-    $('progress').style.setProperty('--fill', tick / 100 + '%');
+    $('progress').setAttribute('aria-valuetext', percent(tick));
+    $('progress').parentElement.style.setProperty('--fill', tick / 100 + '%');
     document.querySelectorAll('[data-tick]').forEach(b => b.classList.toggle('current', +b.dataset.tick === tick));
 }
 function pause() { playing = false; cancelAnimationFrame(anim); $('play').querySelector('i').innerHTML = svg('play'); $('play').querySelector('span').textContent = '播放'; }
@@ -106,8 +99,7 @@ function showTarget() {
     $('free-draw').hidden = !live || !target;
     $('target-image').hidden = !target;
     $('target-label').textContent = live ? (liveTarget === '' ? '自由手绘' : '参考照片') : '目标照片';
-    $('target-name').hidden = live;
-    if (!live) $('target-name').textContent = cases.find(c => c.id === key)?.name || '';
+    $('input-title').textContent = live ? '手绘画布' : cases.find(c => c.id === key)?.name || '草图回放';
     if (target) $('target-photo').src = photoURL(target);
 }
 $('target-image').onclick = () => viewPhoto(currentTarget(), mode === 'replay' ? '目标照片' : '参考照片');
@@ -150,7 +142,7 @@ $('sample').onclick = () => {
 
 const columns = {base: '原始检索', adapter: '优化检索'};
 for (const [side, title] of Object.entries(columns)) {
-    $('model-' + side).innerHTML = '<h3>' + title + '</h3><div class="rankline"><span>目标排名</span><strong>—</strong></div><div class="list"></div>';
+    $('model-' + side).innerHTML = '<div class="model-head"><h2>' + title + '</h2><span class="rankline">目标<strong>—</strong></span></div><div class="list"></div>';
 }
 function renderResults(result, target) {
     for (const [side, title] of Object.entries(columns)) {
@@ -160,8 +152,7 @@ function renderResults(result, target) {
         list.replaceChildren();
         if (!data) {
             list.className = 'list empty-result';
-            list.innerHTML = '<i data-icon="photo"></i><span>' + (mode === 'live' ? '画下一笔，查看结果' : '等待草图笔画') + '</span>';
-            setIcons(list);
+            list.textContent = mode === 'live' ? '画下一笔，查看结果' : '等待草图笔画';
             continue;
         }
         list.className = 'list photos';
@@ -171,7 +162,7 @@ function renderResults(result, target) {
             btn.type = 'button';
             btn.className = 'photo' + (i === 0 ? ' hero' : '') + (match ? ' match' : '');
             btn.setAttribute('aria-label', label);
-            btn.innerHTML = '<span class="frame"><img alt="" src="' + photoURL(hit.id) + '"><span class="position">' + (i + 1) + '</span>' + (match ? '<span class="matchmark">目标</span>' : '') + '</span>';
+            btn.innerHTML = '<span class="position">' + (i + 1) + '</span><span class="frame"><img alt="" src="' + photoURL(hit.id) + '"></span>' + (match ? '<span class="matchmark">命中目标</span>' : '');
             btn.onclick = () => viewPhoto(hit.id, label);
             list.append(btn);
         });
@@ -316,8 +307,10 @@ function setMode(next) {
     $('pad').classList.toggle('drawing', live);
     $('live-controls').hidden = !live;
     $('replay-controls').hidden = live;
-    document.querySelector('.input-panel').classList.toggle('live', live);
-    $('input-title').textContent = live ? '手绘画布' : '回放画布';
+    $('workspace').dataset.mode = mode;
+    const reference = $('target-wrap'), drawingArea = $('pad').parentElement;
+    if (live) drawingArea.before(reference);
+    else drawingArea.after(reference);
     $('paper-empty').hidden = true;
     message('');
     showTarget();
